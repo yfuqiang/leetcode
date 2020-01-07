@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+            map<int,int> PMAP;
+            stack<int> S;
+            vector<int> result;
+            int n=nums2.size();
+            int m=nums1.size();
+            int i,j;
+            for(i=0;i<n;i++)
+            {
+                if(S.empty()==1||S.top()>nums2[i])
+                {
+                    S.push(nums2[i]);
+                }
+                else
+                {
+                    while((S.empty()==0)&&(S.top()<nums2[i]))
+                    {
+                    PMAP.insert({S.top(),nums2[i]});
+                    S.pop();
+                    }
+                    S.push(nums2[i]);
+                }
+            }
+            while(S.empty()==0)
+            {
+                PMAP.insert({S.top(),-1});
+                S.pop();
+            }
+            for(i=0;i<m;i++)
+            {
+                result.push_back(PMAP[nums1[i]]);
+            }
+            return result;
+    }
+};
