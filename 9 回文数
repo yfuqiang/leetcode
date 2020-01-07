@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool isPalindrome(long int x) {
+        long int i,m=0,n;
+        long int k=x;
+      
+        if(x<0)
+        {
+            return false;
+        }
+        else if(x==0)
+        {
+            return true;
+        }
+        else
+        {
+            do
+            {
+                m=m*10+x%10;
+                x=x/10;
+              
+            }while(x!=0);
+            if(k==m)
+            {
+                return true;
+            }
+            else{
+
+                return false;
+            }
+        }
+    }
+};
