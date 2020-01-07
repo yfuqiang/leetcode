@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        int currow=0;
+        bool gogo=false;
+        if(numRows==1)
+        {
+            return s;
+        }
+        vector<string> rowall(min(numRows,int(s.length())));
+        for(char c:s)
+        {
+            
+            rowall[currow]+=c;
+            if(currow==0||currow==numRows-1)
+            {
+                gogo=!gogo;
+            }
+            currow+=gogo?1:-1;
+        }
+        string str;
+        for(string row:rowall)
+        {
+            str=str+row;
+        }
+        return str;
+    }
+};
