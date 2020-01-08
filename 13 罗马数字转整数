@@ -1,0 +1,81 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+       unordered_map<string,int> p;
+       string k;
+       int m=0,n;
+       p["IV"]=4;
+       p["IX"]=9;
+       p["XL"]=40;
+       p["XC"]=90;
+       p["CD"]=400;
+       p["CM"]=900; 
+       p["I"]=1;
+       p["V"]=5;
+       p["X"]=10;
+       p["L"]=50;
+       p["C"]=100;
+       p["D"]=500;
+       p["M"]=1000;
+       for(int i=0;i<s.length();i++)  
+       {
+           if(s[i]!='I'&&s[i]!='X'&&s[i]!='C')
+           {
+               k=s[i];
+                m=m+p[k];
+           }
+           else
+            {
+                if(s[i]=='I')
+                {
+                    if(s[i+1]=='V')
+                    {m+=p["IV"];
+                    i++;}
+                    else if(s[i+1]=='X')
+                    {
+                        m+=p["IX"];
+                        i++;
+                    }
+                     else
+                    {     k=s[i];
+                    m=m+p[k];
+                     }
+                }
+                else if(s[i]=='X')
+                {
+                    if(s[i+1]=='L')
+                    {m+=p["XL"];
+                    i++;}
+                    else if(s[i+1]=='C')
+                    {
+                        m+=p["XC"];
+                        i++;
+                    }
+                     else
+                    {     k=s[i];
+                    m=m+p[k];
+                     }                    
+                }
+                else if(s[i]=='C')
+                {
+                    if(s[i+1]=='D')
+                    {m+=p["CD"];
+                    i++;}
+                    else if(s[i+1]=='M')
+                    {
+                        m+=p["CM"];
+                        i++;
+                    }
+                     else
+                    {     k=s[i];
+                    m=m+p[k];
+                     }                    
+                }
+
+
+            }
+       }
+     return m;
+    }
+   
+};
