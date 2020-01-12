@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string countAndSay(int n) {
+        int i,j,k=1;
+        string ss;
+        
+        ss="1";
+        if(n==1)
+        return ss;
+        for(i=2;i<=n;i++)
+        {
+            string p;
+            for(j=0;j<ss.length();j++)
+            {
+                if((j!=ss.length()-1)&&(ss[j+1]==ss[j]))
+                {
+                    k++;
+                }
+                else
+                {
+                    p=p+to_string(k)+ss[j];
+                    k=1;
+                }
+            }
+            ss=p;
+            
+        }
+         return ss;
+    }
+};
