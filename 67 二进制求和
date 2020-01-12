@@ -1,0 +1,46 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int count=0;
+        int m,n;
+        string t;
+        m=a.length();
+        n=b.length();
+        if(m>=n)
+        b.insert(0,m-n,'0');
+        else
+        a.insert(0,n-m,'0');
+        for(int i=a.length()-1;i>=0;i--)
+        {
+            if(a[i]=='0'&&b[i]=='0')
+            {
+                t=to_string(count);
+                a[i]=t[0];
+                count=0;
+            }
+            if(a[i]=='1'&&b[i]=='1')
+            {
+                t=to_string(count);
+                a[i]=t[0];
+                count=1;
+            }
+            if((a[i]=='1'&&b[i]=='0')||(a[i]=='0'&&b[i]=='1'))
+            {
+                if(count==1)
+                {
+                    a[i]='0';
+                    count=1;
+                }
+                else
+                {
+                    a[i]='1';
+                    count=0;
+                }
+            }
+        }
+        if(count==1)
+        a.insert(0,1,'1');
+        return a;
+
+    }
+};
