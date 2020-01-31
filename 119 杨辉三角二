@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+        vector<vector<int>> yang;
+        for(int i=0;i<rowIndex+1;i++)
+        yang.push_back({1});
+        for(int i=1;i<rowIndex+1;i++)
+        {
+            for(int j=1;j<i;j++)
+            {
+            yang[i].push_back(yang[i-1][j-1]+yang[i-1][j]);
+            }
+            yang[i].push_back(1);
+        }
+        return yang[rowIndex];
+
+    }
+};
