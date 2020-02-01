@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        stack<char> p;
+        queue<char> q;
+        int i;
+        for(i=0;i<s.length();i++)
+        {
+            if(s[i]>=65&&s[i]<=90)
+            {
+                q.push(s[i]);
+                p.push(s[i]);
+            }
+            if(s[i]>=97&&s[i]<=122)
+            {
+                q.push(s[i]-32);
+                p.push(s[i]-32);
+            }
+            if(s[i]>=48&&s[i]<=57)
+            {
+                q.push(s[i]);
+                p.push(s[i]);
+            }
+        }
+        while(p.empty()!=1)
+        {
+            if(p.top()!=q.front())
+            return false;
+            p.pop();
+            q.pop();
+        }
+        return true;
+ 
+    }
+};
