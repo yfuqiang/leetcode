@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int titleToNumber(string s) {
+        int i,j,k=0;
+        for(i=0;i<s.length();i++)
+        {
+            k=k*26+(s[i]-64);
+        }
+        return k;
+    }
+};
