@@ -1,0 +1,24 @@
+class Solution {
+public:
+    long int reverseBits(uint32_t n) {
+        uint32_t a;
+        long int k;
+        queue<bool> s;
+        int i=0;
+        while(i<32)
+        {
+            k=n%2;
+            s.push(k);
+            n=n>>1;
+            i++;
+        }
+        k=0;
+        while(i>0)
+        {
+            k=k*2+s.front();
+            s.pop();
+            i--;
+        }
+        return k;
+    }
+};
