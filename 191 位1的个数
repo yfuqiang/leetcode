@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        stack<bool> s;
+        int i=0,count=0;
+        while(i<32)
+        {
+            s.push(n%2);
+            n/=2;
+            i++;
+        }
+        while(s.empty()!=1)
+        {
+            if(s.top()==1)
+                count++;
+            s.pop();
+        }
+        return count;
+    }
+};
