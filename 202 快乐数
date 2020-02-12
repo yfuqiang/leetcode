@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool isHappy(int n) {
+        int i=0,j,sum;
+        while(i<500)
+        {
+            while(n!=0)
+            {
+                sum+=(n%10)*(n%10);
+                n/=10;
+            }
+            if(sum==1)
+            return true;
+            else
+            {
+                n=sum;
+                sum=0;
+            }
+            i++;
+        }
+        return false;
+    }
+};
