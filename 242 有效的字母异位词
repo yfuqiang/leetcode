@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        string x=s;
+        string y=t;
+
+        sort(x.begin(),x.end());
+        sort(y.begin(),y.end());
+        if(x!=y)
+        return false;
+        if(s.size()<=1)
+        return true;
+        if(s!=t)
+        return true;
+        return false;
+    }
+};
