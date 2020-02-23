@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool wordPattern(string pattern, string str) {
+        map<string,char> n;
+        map<char,string> m;
+        string k;
+        int i,j=0;
+        for(i=0;i<pattern.length();i++)
+        {
+
+            while(j<str.length()&&str[j]!=' ')
+            {
+                k=k+str[j];
+                j++;
+            }
+            if(k=="")
+            return false;
+            if(n.find(k)!=n.end())
+            {
+                if(n[k]!=pattern[i])
+                return false;
+            }
+            if(m.find(pattern[i])!=m.end())
+            {
+                if(m[pattern[i]]!=k)
+                return false;
+            }
+            else
+            {
+                n.insert(make_pair(k,pattern[i]));
+                m.insert(make_pair(pattern[i],k));
+            }
+            k="";
+            j++;
+        }
+        if(j<str.length())
+        return false;
+        return true;
+    }
+};
