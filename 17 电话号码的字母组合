@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        map<int,int> m;
+        map<int,char> n;
+        vector<string> s={""};
+        string kk;
+        int i,j,k,sum=0;
+        char p;
+        int l=digits.length();
+        if(l==0)
+        return {};
+        for(i=2;i<=6;i++)
+        {
+            m[i]=3;
+        }
+        m[7]=4;
+        m[8]=3;
+        m[9]=4;
+        for(i=2;i<=9;i++)
+        {
+            n[i]=sum+'a';
+            sum+=m[i];
+        }
+        for(i=0;i<digits.length();i++)
+        {
+            vector<string> temp;
+            int all=digits[i]-'0';
+            for(k=0;k<s.size();k++)
+            {
+             for(j=0;j<m[all];j++)
+             {
+             p=n[all]+j;
+             kk=s[k]+p;
+             temp.push_back(kk);
+             }
+            }
+            s=temp;
+        }
+        return s;
+    }
+};
