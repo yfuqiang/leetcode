@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        int i,j=0;
+        for(i=0;i<s.length();i++)
+        {
+            while(j<t.length()&&s[i]!=t[j])
+            {
+                j++;
+            }
+            if(j<t.length())
+            {
+                j++;
+                continue;
+            }
+            else
+            return false;
+
+        }
+        return true;
+    }
+};
