@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        if(dividend==0) return 0;
+        if(divisor==1) return dividend;
+        if(divisor==-1)
+        {
+            if(dividend==INT_MIN) return INT_MAX;
+            else return -dividend;
+        }
+        bool sign=0;
+        if((dividend>0&&divisor<0)||(dividend<0&&divisor>0))
+        {
+            sign=1;
+        }
+        long r=dividend;
+        long t=divisor;
+        r=r>0?r:(-r);
+        t=t>0?t:(-t);
+        long res=div(r,t);
+        if(sign==1)
+        res=0-res;
+        return res;
+    }
+
+    int div(long a,long b)
+    {
+        int count=1;
+        long t=b;
+        if(a<b)
+        return 0;
+        while(t+t<a)
+        {
+            t=t+t;
+            count=count+count;
+        }
+        return count+div(a-t,b);
+    }
+};
