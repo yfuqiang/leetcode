@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<string> readBinaryWatch(int num) {
+        vector<string> s;
+        string temp;
+        int i,j;
+        for(i=0;i<12;i++)
+        {
+            for(j=0;j<60;j++)
+            {
+                if(count(i)+count(j)==num)
+                {
+                    if(j<10)
+                    {
+                        temp='0'+to_string(j);
+                    }
+                    else
+                    temp=to_string(j);
+                    s.push_back(to_string(i)+':'+temp);
+                    temp="";
+                }
+            }
+
+        }
+        return s;
+    }
+
+    int count(int x)
+    {
+        int cou=0;
+        while(x!=0)
+        {
+            x=x&(x-1);
+            cou++;
+        }
+        return cou;
+    }
+};
