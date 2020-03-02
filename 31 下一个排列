@@ -1,0 +1,29 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+
+        int i,j,min=INT_MAX,k,lo;
+        for(j=nums.size()-1;j>=1;j--)
+        {
+            i=j-1;
+            if(nums[i]>=nums[j])
+            continue;
+            else
+            {
+                    for(k=i+1;k<nums.size();k++)
+                    {
+                        if(nums[k]<min&&nums[k]>nums[i])
+                        {min=nums[k];
+                        lo=k;
+                        }
+                    }
+                    swap(nums[i],nums[lo]);
+                    sort(nums.begin()+i+1,nums.end());
+                    break;
+            }
+        }
+        if(j==0)
+        sort(nums.begin(),nums.end());
+        
+    }
+};
