@@ -1,0 +1,76 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        if(nums.size()==0)
+        return -1;
+        if(nums.size()==1)
+        {
+            if(target==nums[0])
+            return 0;
+            else
+            return -1;
+        }
+        int i=0,j=nums.size()-1,lo=-1;
+        int t;
+        while(i<j)
+        {
+            if(nums[i]<nums[i+1])
+            {
+                i++;
+            }
+            else
+            {
+                lo=i+1;
+                break;
+            }
+            if(nums[j]>nums[j-1])
+            {
+                j--;
+            }
+            else
+            {
+                lo=j;
+                break;
+            }
+        }
+        if(lo==-1)
+        {
+            t=binfind(nums,0,nums.size()-1,target);
+        }
+        else if(target>nums[nums.size()-1])
+        {
+            t=binfind(nums,0,lo-1,target);
+        }
+        else if(target<=nums[nums.size()-1])
+        {
+            t=binfind(nums,lo,nums.size()-1,target);
+        }
+        else
+            t=lo;
+        return t;
+    }
+
+   int  binfind(vector<int>& nums,int i,int j,int target)
+    {
+        int mid;
+        int lo=i;
+        int hi=j;
+        while(lo<=hi)
+        {
+            mid=(lo+hi)/2;
+            if(nums[mid]<target)
+            {
+                lo=mid+1;
+            }
+            else if(nums[mid]>target)
+            {
+                hi=mid-1;
+            }
+            else
+            return mid;
+
+
+        }
+        return -1;
+    }
+};
