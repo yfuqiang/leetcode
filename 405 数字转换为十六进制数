@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string toHex(int num) {
+        map<int,char> s{{10,'a'},{11,'b'},{12,'c'},{13,'d'},{14,'e'},{15,'f'}};
+        stack<int > t;
+        int k;
+        string res;
+        if(num==0)
+        return "0";
+        long num1;
+        num1=num;
+        if(num1<0)
+        {
+            num1=pow(2,32)+num1;
+        }
+        while(num1!=0)
+        {
+            t.push(num1%16);
+            num1/=16;
+        }
+        while(t.empty()!=1)
+        {
+            k=t.top();
+            if(k>=10)
+            {
+                res+=s[k];
+            }
+            else
+            {
+                res+=to_string(k);
+            }
+            t.pop();
+        }
+        return res;
+    }
+};
