@@ -1,0 +1,118 @@
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char>>& board) {
+        map<char,int> m;
+        int i,j,k;
+        for(i=0;i<9;i++)
+        {
+            for(j=0;j<9;j++)
+            {
+                 m[board[i][j]]++;
+                 if(m[board[i][j]]>1&&board[i][j]!='.')
+                 return false;
+            }
+            m.erase(m.begin(),m.end());
+        }
+        for(i=0;i<9;i++)
+        {
+            for(j=0;j<9;j++)
+            {
+                 m[board[j][i]]++;
+                 if(m[board[j][i]]>1&&board[j][i]!='.')
+                 return false;
+            }
+            m.erase(m.begin(),m.end());
+        }
+        for(i=0;i<3;i++)
+        {
+            for(j=0;j<3;j++)
+            {
+                 m[board[i][j]]++;
+                 if(m[board[i][j]]>1&&board[i][j]!='.')
+                 return false;
+            }
+        }
+        m.erase(m.begin(),m.end());
+        for(i=3;i<6;i++)
+        {
+            for(j=0;j<3;j++)
+            {
+                 m[board[i][j]]++;
+                 if(m[board[i][j]]>1&&board[i][j]!='.')
+                 return false;
+            }
+        }
+        m.erase(m.begin(),m.end());
+        for(i=6;i<9;i++)
+        {
+            for(j=0;j<3;j++)
+            {
+                 m[board[i][j]]++;
+                 if(m[board[i][j]]>1&&board[i][j]!='.')
+                 return false;
+            }
+        }
+        m.erase(m.begin(),m.end());
+        for(i=0;i<3;i++)
+        {
+            for(j=3;j<6;j++)
+            {
+                 m[board[i][j]]++;
+                 if(m[board[i][j]]>1&&board[i][j]!='.')
+                 return false;
+            }
+        }
+        m.erase(m.begin(),m.end());
+        for(i=3;i<6;i++)
+        {
+            for(j=3;j<6;j++)
+            {
+                 m[board[i][j]]++;
+                 if(m[board[i][j]]>1&&board[i][j]!='.')
+                 return false;
+            }
+        }
+        m.erase(m.begin(),m.end());
+        for(i=6;i<9;i++)
+        {
+            for(j=3;j<6;j++)
+            {
+                 m[board[i][j]]++;
+                 if(m[board[i][j]]>1&&board[i][j]!='.')
+                 return false;
+            }
+        }
+        m.erase(m.begin(),m.end());
+        for(i=0;i<3;i++)
+        {
+            for(j=6;j<9;j++)
+            {
+                 m[board[i][j]]++;
+                 if(m[board[i][j]]>1&&board[i][j]!='.')
+                 return false;
+            }
+        }
+        m.erase(m.begin(),m.end());
+        for(i=3;i<6;i++)
+        {
+            for(j=6;j<9;j++)
+            {
+                 m[board[i][j]]++;
+                 if(m[board[i][j]]>1&&board[i][j]!='.')
+                 return false;
+            }
+        }
+        m.erase(m.begin(),m.end());
+        for(i=6;i<9;i++)
+        {
+            for(j=6;j<9;j++)
+            {
+                 m[board[i][j]]++;
+                 if(m[board[i][j]]>1&&board[i][j]!='.')
+                 return false;
+            }
+        }
+        m.erase(m.begin(),m.end());
+        return true;
+    }
+};
