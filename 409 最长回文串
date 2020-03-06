@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        map<char,int> m;
+        int i,sum=0,flag=0;
+        for(i=0;i<s.length();i++)
+        {
+            m[s[i]]++;
+        }
+        for(auto c:m)
+        {
+            if(c.second>=2)
+            {
+                sum+=c.second/2*2;
+            }
+            if(c.second%2==1)
+            flag=1;
+        }
+        if(flag==1)
+        sum+=1;
+        return sum;
+    }
+};
