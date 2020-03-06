@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        dfs(nums,0);
+        return res;
+    }
+
+    void dfs(vector<int> nums,int begin)
+    {
+        if(begin==nums.size())
+        {
+            res.push_back(g);
+        }
+        int i,j;
+        for(i=begin;i<nums.size();i++)
+        {
+            g.push_back(nums[i]);
+            j=i+1;
+            for(j;j<nums.size();j++)
+            {
+                if(nums[i]!=nums[j])
+                break;
+            }
+            dfs(nums,j);
+            g.pop_back();
+        }
+    }
+
+    vector<vector<int>> res;
+    vector<int> g;
+};
