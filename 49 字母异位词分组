@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<string> temp=strs;
+        vector<vector<string>> res;
+        vector<string> kk;
+        vector<int> count(strs.size(),0);
+        int i,j;
+        for(i=0;i<strs.size();i++)
+        {
+            sort(temp[i].begin(),temp[i].end());
+        }
+        for(i=0;i<temp.size();i++)
+        {
+            if(count[i]==1)
+            continue;
+            kk.push_back(strs[i]);
+            count[i]=1;
+            for(j=i+1;j<temp.size();j++)
+            {
+                if(count[j]==1)
+                continue;
+                if(temp[i]==temp[j])
+                {
+                    kk.push_back(strs[j]);
+                    count[j]=1;
+                }
+
+            }
+            res.push_back(kk);
+            kk.erase(kk.begin(),kk.end());
+        }
+        return res;
+    }
+};
