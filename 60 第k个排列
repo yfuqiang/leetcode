@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string getPermutation(int n, int k) {
+        int count=1;
+
+        vector<int> r;
+        int i;
+        for(i=1;i<=n;i++)
+        {
+            r.push_back(i);
+        }
+        do{
+            if(count==k)
+            break;
+            count++;
+        }while(next_permutation(r.begin(),r.end()));
+        string res;
+        for(auto v:r)
+        {
+            res+=to_string(v);
+        }
+        return res;
+    }
+};
