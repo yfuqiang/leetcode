@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        vector<int> m;
+        int lo,temp;
+        int i,j;
+        bool flag=0;
+        if(matrix.empty()==1||matrix[0].empty()==1)
+        return false;
+        for(i=0,j=matrix[0].size()-1;i<matrix.size();i++)
+        {
+            m.push_back(matrix[i][j]);
+        }
+
+        for(auto c:m)
+        {
+            if(c>=target)
+                {temp=c;
+                
+                flag=1;
+                break;}
+
+        }
+        if(flag==0)
+        return false;
+        lo=find(m.begin(),m.end(),temp)-m.begin();
+        if(find(matrix[lo].begin(),matrix[lo].end(),target)!=matrix[lo].end())
+        return true;
+        else
+        return false;
+    }
+};
