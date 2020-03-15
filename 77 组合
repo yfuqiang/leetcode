@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        int i;
+        vector<int> nums;
+        int count=0;
+        for(i=1;i<=n;i++)
+        {
+            nums.push_back(i);
+        }
+        dfs(nums,count,0,k);
+        return res;
+    }
+    void dfs(vector<int> nums,int count,int begin,int k)
+    {
+        int i;
+        if(count+nums.size()-begin<k)//剪枝
+        return;
+        if(count==k)
+        {
+        res.push_back(temp);
+        return;
+        }
+        for(i=begin;i<nums.size();i++)
+        {
+            temp.push_back(nums[i]);
+            dfs(nums,count+1,i+1,k);
+            temp.pop_back();
+        }
+        return ;
+    }
+    vector<int> temp;
+    vector<vector<int>> res;
+};
