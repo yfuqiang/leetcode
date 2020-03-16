@@ -1,0 +1,46 @@
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+       int i,j,k;
+       int count=0;
+       sort(nums.begin(),nums.end());
+       k=nums.size();
+       res.push_back({});
+       for(i=0;i<k;i++)
+       {
+           res.push_back({nums[i]});
+       }
+        for(i=2;i<=k-1;i++)
+        {
+            dfs(nums,count,0,i);
+            temp.erase(temp.begin(),temp.end());
+        }
+        if(k==1)
+        return res;
+        res.push_back(nums);
+        return res;
+    }
+    void dfs(vector<int> nums,int count,int begin,int k)
+    {
+        
+        if(count==k)
+        {
+            res.push_back(temp);
+            return;
+        }
+        int i,j;
+        if(count+nums.size()-begin<k)
+        return;
+        for(i=begin;i<nums.size();i++)
+        {
+            {
+                temp.push_back(nums[i]);
+                dfs(nums,count+1,i+1,k);
+                temp.pop_back();
+            }
+        }
+        return;
+    }
+    vector<vector<int>> res;
+    vector<int> temp;
+};
