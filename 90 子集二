@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<vector<int>> res;
+    vector<int> temp;
+    set<vector<int>> ss;
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+      sort(nums.begin(),nums.end());
+      dfs(nums,0);
+      return res;
+    }
+
+    void dfs(vector<int> nums,int begin)
+    {
+        int i;
+        for(i=begin;i<nums.size();i++)
+        {
+            temp.push_back(nums[i]);
+            dfs(nums,i+1);
+            temp.pop_back();
+        }
+        if(find(ss.begin(),ss.end(),temp)==ss.end())
+        {
+        res.push_back(temp);
+        ss.insert(temp);}
+        return;
+    }
+};
