@@ -1,0 +1,55 @@
+class Solution {
+public:
+    vector<string> res;
+    vector<string> restoreIpAddresses(string s) {
+        string temp;
+        if(s=="")
+        return {};
+        if(s.length()>12)
+        return {};
+        dfs(s,0,0,temp);
+        return res;
+    }
+
+    void dfs(string s,int begin,int block,string temp)
+    {
+        if((temp.length()==s.length()+4)&&(block==4))
+        {
+            temp.pop_back();
+            res.push_back(temp);
+            return;
+        }
+        if(begin>(s.length()-1))
+        return;
+        if(s[begin]=='0')
+        {
+        temp.push_back(s[begin]);
+        temp.push_back('.');
+        dfs(s,begin+1,block+1,temp);
+        return;
+        }
+        temp.push_back(s[begin]);
+        temp.push_back('.');
+        dfs(s,begin+1,block+1,temp);
+        if(begin<=(s.length()-2))
+        {
+        temp.pop_back();
+        temp.push_back(s[begin+1]);
+        temp.push_back('.');
+        dfs(s,begin+2,block+1,temp);
+        }
+        if(begin<=(s.length()-3))
+        {
+            int x;
+            x=(s[begin]-'0')*100+(s[begin+1]-'0')*10+(s[begin+2]-'0');
+            if(x>255)
+            return;
+            temp.pop_back();
+            temp.push_back(s[begin+2]);
+            temp.push_back('.');
+            dfs(s,begin+3,block+1,temp);
+        }
+        return;
+
+    }
+};
