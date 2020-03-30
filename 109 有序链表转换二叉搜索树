@@ -1,0 +1,42 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+        if(head==NULL)
+        return NULL;
+        TreeNode* root=new TreeNode(0);
+        ListNode* p=new ListNode(0);
+        p->next=head;
+        ListNode* p1=p;
+        ListNode* pre=head;
+        ListNode* cur=head;
+        while(cur!=NULL&&cur->next!=NULL)
+        {
+            p1=p1->next;
+            pre=pre->next;
+            cur=cur->next;
+            cur=cur->next;
+        }
+        root->val=pre->val;
+        p1->next=NULL;
+        root->left=sortedListToBST(p->next);
+        root->right=sortedListToBST(pre->next);
+        return root;
+    }
+};
