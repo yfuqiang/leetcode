@@ -1,0 +1,12 @@
+# Write your MySQL query statement below
+select d.name Department,c.Employee,c.ss Salary
+from (
+select b.name employee,b.salary ss,b.departmentid dd
+from
+(
+select max(salary) m,departmentid
+from employee
+group by departmentid
+) a
+inner join employee b on a.departmentid=b.departmentid and a.m=b.salary) c
+inner join department d on c.dd=d.id;
