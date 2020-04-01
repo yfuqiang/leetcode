@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int countSegments(string s) {
+        stringstream ss(s);
+        string world;
+       
+        int res = 0;
+        while(getline(ss,world,' '))
+        {
+            if(world!="")
+            res++;
+           
+        }
+            
+        return res;
+
+
+    }
+};
