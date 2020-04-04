@@ -1,0 +1,9 @@
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        double a=n+1.0/8;
+        int b=sqrt(a)*sqrt(2)-0.5;
+        return b;
+
+    }
+};
