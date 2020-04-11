@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        set<string> ss(wordDict.begin(),wordDict.end());
+        int i=0;
+        return dfs(s,ss,i);
+    }
+    bool dfs(string s,set<string> ss,int begin)
+    {
+        if(s.empty()==1)
+        return true;
+        if(mm[s]==1)
+        return false;
+        int i;
+        for(i=1;i<=s.length();i++)
+        {
+            string temp;
+            temp=s.substr(0,i);
+          
+                if(ss.find(temp)!=ss.end())
+                {
+                if(!dfs(s.substr(i),ss,i+1))
+                {
+                mm[s.substr(i)]=1;
+                }
+                else
+                return true;
+                
+                }
+            
+        }
+        return false;
+    }
+    unordered_map<string,int> mm;
+};
