@@ -1,0 +1,85 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        ListNode* Dummyhead=new ListNode(-1);
+        Dummyhead->next=head;
+        ListNode* head1=head;
+        int l=0;
+        while(head1!=NULL)
+        {
+            l++;
+            head1=head1->next;
+        }
+
+        int size;
+        for(size=1;size<l;size<<=1)
+        {
+            ListNode* cur=Dummyhead->next;
+            ListNode* link=Dummyhead;
+
+            while(cur!=NULL)
+            {
+                ListNode* left=cur;
+                ListNode* right=cut(left,size);
+                cur=cut(right,size);//每次截取两段，并把最后指向空
+                link->next=merge(left,right);
+                while(link->next)
+                {
+                    link=link->next;
+                }//到达本次计算结果链表的末尾
+            }
+        }
+        return Dummyhead->next;
+    }
+
+    ListNode* merge(ListNode* ll,ListNode* rr)
+    {
+        ListNode* Dummy=new ListNode(-1);
+        ListNode* p=Dummy;
+
+        while(ll&&rr)
+        {
+            if(ll->val<rr->val)
+            {
+               p->next=ll;
+               ll=ll->next;
+               p=p->next;
+            }
+            else
+            {
+               p->next=rr;
+               rr=rr->next;
+               p=p->next;
+            }
+        }
+            if(!ll)
+            p->next= rr;
+            else
+            p->next=ll;
+            return Dummy->next;
+    }
+
+    ListNode* cut(ListNode* s,int size)
+    {
+        ListNode* p=s;
+        while(--size>0&&p)
+        {
+            p=p->next;
+            
+        }
+        if(!p)
+        return NULL;
+        ListNode* next=p->next;
+        p->next=NULL;
+        return next;
+
+    }
+};
