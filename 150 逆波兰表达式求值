@@ -1,0 +1,45 @@
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> sdata;
+        int i;
+        for(i=0;i<tokens.size();i++)
+        {
+            if(isdata(tokens[i]))
+            {
+                sdata.push(stoi(tokens[i]));
+            }
+            else
+            {
+                int data2=sdata.top();
+                sdata.pop();
+                int data1=sdata.top();
+                sdata.pop();
+                int fi=calculate(data1,data2,tokens[i][0]);
+                sdata.push(fi);
+            }
+        }
+
+        return sdata.top();
+    }
+    bool isdata(string a)
+    {
+        if(a.length()==1&&(a[0]=='+'||a[0]=='-'||a[0]=='/'||a[0]=='*'))
+        return false;
+        else
+        return true;
+    }
+
+    int calculate(int data1,int data2,char op)
+    {
+        if(op=='+')
+        return data1+data2;
+        if(op=='-')
+        return data1-data2;
+        if(op=='*')
+        return data1*data2;
+        if(op=='/')
+        return data1/data2;
+        return 0;
+    }
+};
