@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int n = nums.size();
+        if(n == 0){
+            return 0;
+        } else if(n == 1) {
+            return nums[0];
+        }
+        vector<int> maxdp(n);
+        vector<int> mindp(n);
+        int p = nums[0];
+         maxdp[0] = nums[0];
+         mindp[0] = nums[0];
+        for(int i = 0; i < n-1; i++) {
+            int t = maxdp[i];
+            maxdp[i+1] = max(max(maxdp[i] * nums[i+1], nums[i+1]), mindp[i] *nums[i+1]);
+            mindp[i+1] = min(min(t * nums[i+1], nums[i+1]), mindp[i] * nums[i+1]);
+            p = max(maxdp[i+1], p);
+        }
+        return p;
+    }
+};
