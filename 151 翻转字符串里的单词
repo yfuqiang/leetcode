@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        stringstream ss(s);
+        stack<string> p;
+        string word;
+        while(getline(ss,word,' '))
+        {
+            if(word!="")
+            p.push(word);
+        }
+        string res;
+        while(p.empty()!=1)
+        {
+            res+=p.top();
+            p.pop();
+            res+=' ';
+        }
+        if(res.length()>0)
+        res.erase(res.end()-1,res.end());
+        return res;
+    }
+};
