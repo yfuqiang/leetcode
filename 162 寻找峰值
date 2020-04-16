@@ -1,0 +1,16 @@
+class Solution {
+public:
+     int findPeakElement(vector<int>& nums) {
+        int lo = 0, hi = nums.size() - 1;
+        while (lo < hi) {
+        int mid = lo + (hi - lo >> 1);
+        if (mid == nums.size() - 1 || nums[mid] > nums[mid+1]) {
+            hi = mid;//处于递减序列，左边一定有峰值
+        } else {
+            lo = mid + 1;//处于递增序列，右边一定有峰值
+        }
+    }
+    return lo;
+
+    }
+};
