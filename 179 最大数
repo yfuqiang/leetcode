@@ -1,0 +1,26 @@
+bool cmp(string a, string b)//直接相加比较,反证法，放类外
+{
+	return a+b > b+a;
+}
+class Solution {
+public:
+string largestNumber(vector<int>& nums) {
+	vector<string> v;
+	for (int i = 0; i < nums.size(); i++)
+	{
+		string temp = to_string(nums[i]);
+		v.push_back(temp);
+	}
+	sort(v.begin(), v.end(), cmp);
+	string ret;
+	for (int i = 0; i < v.size(); i++)
+	{
+		ret += v[i];
+        if (v[0] == "0")//考虑全零的情况
+			break;
+	}
+	return ret;
+
+}
+
+};
