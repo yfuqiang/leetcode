@@ -1,0 +1,67 @@
+class WordDictionary {
+public:
+    /** Initialize your data structure here. */
+    bool isend;
+    WordDictionary* next[26];
+
+    WordDictionary() {
+        isend=0;
+        for(int i=0;i<26;i++)
+        {
+            next[i]=NULL;
+        }
+    }
+    
+    /** Adds a word into the data structure. */
+    void addWord(string word) {
+        WordDictionary* temp=this;
+        for(auto c:word)
+        {
+            if(temp->next[c-'a']==NULL)
+            temp->next[c-'a']=new WordDictionary();
+            temp=temp->next[c-'a'];
+        }
+        temp->isend=true;
+    }
+    
+    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+    bool search(string word) {
+        return dfs(this,word,0);
+    }
+    bool dfs(WordDictionary* temp,string word,int i)
+    {
+        if(!temp)
+        return false;
+        if(i>=word.length())
+        return temp->isend;
+        int k=0;
+        bool flag=0;
+        if(word[i]=='.')
+        {
+            while(k<26)
+            {
+                if(temp->next[k]!=NULL)
+                flag|=dfs(temp->next[k],word,i+1);
+                k++;
+                
+            }
+            return flag;
+        }
+        else
+        {  
+            if(temp->next[word[i]-'a']==NULL)
+            return false;
+            else
+            return dfs(temp->next[word[i]-'a'],word,i+1);
+        }
+       return false;
+      }
+    
+};
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary* obj = new WordDictionary();
+ * obj->addWord(word);
+ * bool param_2 = obj->search(word);
+ */
