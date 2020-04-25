@@ -1,0 +1,90 @@
+class Solution {
+public:
+    int calculate(string s) {
+        stack<long> data;
+        stack<char> op;
+        
+        long data1,data2;
+        int i;
+        for(i=0;i<s.length();i++)
+        {
+            
+            if(s[i]==' ')
+            continue;
+            if(s[i]>='0'&&s[i]<='9')
+            {
+            long all=s[i]-'0';
+            i++;
+            while(i<s.length()&&s[i]>='0'&&s[i]<='9')
+            {
+                all=all*10+s[i]-'0';
+                i++;
+            }
+            i--;
+            data.push(all);
+            }
+            else
+            {
+                if(op.empty()==1)
+                op.push(s[i]);
+                else if(cmp(op.top(),s[i]))
+                {
+                    data2=data.top();
+                    data.pop();
+                    data1=data.top();
+                    data.pop();
+                    char op1=op.top();
+                    if(op1=='+')
+                    data.push(data1+data2);
+                    else if(op1=='-')
+                    data.push(data1-data2);
+                    else if(op1=='*')
+                    data.push(data1*data2);
+                    else if(op1=='/')
+                    data.push( data1/data2);
+                    op.pop();
+                    i--;
+                }
+                else
+                {
+                    op.push(s[i]);
+                }
+            }
+        }
+        while(op.empty()!=1)
+        {
+                data2=data.top();
+                data.pop();
+                data1=data.top();
+                data.pop();
+                char op1=op.top();
+                if(op1=='+')
+                data.push(data1+data2);
+                else if(op1=='-')
+                data.push(data1-data2);
+                else if(op1=='*')
+                data.push(data1*data2);
+                else if(op1=='/')
+                data.push( data1/data2);
+                op.pop();
+        }
+        return data.top();
+    }
+
+
+    bool cmp(char c1,char c2)
+    {
+        if(c1=='+'||c1=='-')
+        {
+            if(c2=='+'||c2=='-')
+            return 1;
+            else
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
+};
