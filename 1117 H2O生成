@@ -1,0 +1,38 @@
+class H2O {
+public:
+    int h_count=0;
+    int o_count=0;
+    std::mutex mu;
+    std::condition_variable cv1;
+    H2O() {
+        
+    }
+
+    void hydrogen(function<void()> releaseHydrogen) {//输入一个氢
+        std::unique_lock<std::mutex> a(mu);
+        cv1.wait(a,[this](){return h_count<2;});
+        // releaseHydrogen() outputs "H". Do not change or remove this line.
+        releaseHydrogen();
+        h_count++;
+        if(h_count==2&&o_count==1)
+        {
+            h_count=0;
+            o_count=0;
+        }
+        cv1.notify_all();
+    }
+
+    void oxygen(function<void()> releaseOxygen) {//输入一个氧
+        std::unique_lock<std::mutex> a(mu);
+        cv1.wait(a,[this](){return o_count<1;});
+        // releaseOxygen() outputs "O". Do not change or remove this line.
+        releaseOxygen();
+        o_count++;
+        if(h_count==2&&o_count==1)
+        {
+            h_count=0;
+            o_count=0;
+        }
+        cv1.notify_all();
+    }
+};
