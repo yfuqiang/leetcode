@@ -1,0 +1,54 @@
+class ZeroEvenOdd {
+private:
+    int n;
+    int count=0;
+    int flag=0;
+    std::mutex mu;
+    condition_variable cv1;
+    condition_variable cv2;
+    condition_variable cv3;
+    
+public:
+    ZeroEvenOdd(int n) {
+        this->n = n;
+        
+    }
+
+    // printNumber(x) outputs "x", where x is an integer.
+    void zero(function<void(int)> printNumber) {//要循环输出，必须带for
+        for(int i=1;i<=n;i++)
+        {
+            std::unique_lock<std::mutex> a(mu);
+            cv1.wait(a,[this](){return flag==0;});
+            printNumber(0);
+            count++;
+            flag++;
+            if(count%2==0)
+            cv2.notify_one();
+            else
+            cv3.notify_one();
+        }
+    }
+
+    void even(function<void(int)> printNumber) {
+        for(int i=2;i<=n;i+=2)
+        {
+            std::unique_lock<std::mutex> a(mu);
+            cv2.wait(a,[this](){return flag==1&&(count%2)==0;});
+            flag--;
+            printNumber(i);
+            cv1.notify_one();
+        }
+    }
+
+    void odd(function<void(int)> printNumber) {
+        for(int i=1;i<=n;i+=2)
+        {
+            std::unique_lock<std::mutex> a(mu);
+            cv3.wait(a,[this](){return flag==1&&(count%2==1);});
+            flag--;
+            printNumber(i);
+            cv1.notify_one();
+        }
+    }
+};
