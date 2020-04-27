@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+        int dis = x^y;
+        int cnt = 0;
+        while(dis)
+        {
+            if(dis & 1) cnt++;
+            dis >>= 1;
+        }
+        return cnt;
+    }
+   
+};
