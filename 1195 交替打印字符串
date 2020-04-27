@@ -1,0 +1,73 @@
+class FizzBuzz {
+private:
+    int n;
+    std::mutex mu;
+    
+    int i;
+    condition_variable cv1;
+public:
+    FizzBuzz(int n) {
+        this->n = n;
+        i=1;
+    }
+
+    // printFizz() outputs "fizz".
+    void fizz(function<void()> printFizz) {
+        while(i<=n)//！！！！！如果用while进行循环 之后的wait一定要或上i>n条件，不然另外几个县城会一直卡在那里
+        {
+        unique_lock<std::mutex> a(mu);
+        cv1.wait(a,[this](){return (i%3==0&&i%5!=0)||i>n;});
+        if(i<=n)
+        {
+        printFizz();
+        i++;
+        }
+        cv1.notify_all();
+        }
+    }
+
+    // printBuzz() outputs "buzz".
+    void buzz(function<void()> printBuzz) {
+        while(i<=n)
+        {
+        unique_lock<std::mutex> a(mu);
+        cv1.wait(a,[this](){return (i%3!=0&&i%5==0)||i>n;});
+        
+        if(i<=n){
+        i++;
+        printBuzz();
+        }
+        cv1.notify_all();
+        
+        }
+    }
+    // printFizzBuzz() outputs "fizzbuzz".
+	void fizzbuzz(function<void()> printFizzBuzz) {
+        while(i<=n)
+        {
+        unique_lock<std::mutex> a(mu);
+        cv1.wait(a,[this](){return (i%3==0&&i%5==0)||i>n;});
+        if(i<=n)
+        {
+        printFizzBuzz();
+        i++;
+        }
+        cv1.notify_all();
+        }
+    
+    }
+    // printNumber(x) outputs "x", where x is an integer.
+    void number(function<void(int)> printNumber) {
+        while(i<=n)
+        {
+        unique_lock<std::mutex> a(mu);
+        cv1.wait(a,[this](){return (i%3!=0&&i%5!=0)||i>n;});
+        if(i<=n)
+        {
+        printNumber(i);
+        i++;
+        }
+        cv1.notify_all();
+        }
+    }  
+};
