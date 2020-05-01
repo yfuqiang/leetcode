@@ -1,0 +1,20 @@
+bool cmp(int a,int b)
+{
+    return a>b;
+}
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+     int i;
+     int h;
+     sort(citations.begin(),citations.end(),cmp);
+     for(i=0;i<citations.size();i++)
+     {
+         if(citations[i]>=(i+1))
+         h=i+1;
+         else
+         break;
+     }   
+     return h;
+    }
+};
