@@ -1,0 +1,39 @@
+class Solution {
+public:
+    void gameOfLife(vector<vector<int>>& board) {
+        int i,j;
+        vector<vector<int>> locate({{1,0},{-1,0},{0,1},{0,-1},{1,-1},{1,1},{-1,1},{-1,-1}});
+        for(i=0;i<board.size();i++)
+        {
+            for(j=0;j<board[0].size();j++)
+            {
+                int sum=0;
+                for(int k=0;k<8;k++)
+                {
+                    int c=i+locate[k][0];
+                    int d=j+locate[k][1];
+                    if(c>=0&&c<board.size()&&d>=0&&d<board[0].size())
+                    sum+=(board[c][d]&1);
+                }
+                if(board[i][j]==1)
+                {
+                    if(sum==2||sum==3)
+                    board[i][j]|=2;//将数量保存在第二位，原地空间，第一位为原值
+                }
+                else
+                {
+                    if(sum==3)
+                    board[i][j]|=2;
+                }
+            }
+        }
+           for(i=0;i<board.size();i++)
+            {
+                for(j=0;j<board[0].size();j++)
+                {
+                    board[i][j]>>=1;
+                }
+            }
+        
+    }
+};
