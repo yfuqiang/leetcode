@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int findComplement(int num) {
+        int n=num;
+        int count=0;
+        while(n>0)
+        {
+           n>>=1;
+            count++;
+        }
+        int sum=pow(2,count)-1;
+        int p=sum|num;
+        return num^p;
+    }
+};
