@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string licenseKeyFormatting(string S, int K) {
+        int i;
+        if(S=="")
+        return "";
+        for(i=0;i<S.size();i++)
+        {
+            if(S[i]>='a'&&S[i]<='z')
+            {
+                S[i]=toupper(S[i]);
+            }
+        }
+        stringstream ss(S);
+        string res;
+        string k;
+        string fin;
+        while(getline(ss,k,'-'))
+        {
+            res+=k;
+        }
+        int mod=res.size()%K;
+        int siz=res.size();
+        for(i=0;i<mod;i++)
+        fin+=res[i];
+        if(mod!=0&&res.size()>K)
+        fin+='-';
+        for(i=mod;i<siz;i++)
+        {
+            fin+=res[i];
+            if((i-mod+1)%K==0&&i!=siz-1)
+            fin+='-';
+        }
+        return fin;
+    }
+};
