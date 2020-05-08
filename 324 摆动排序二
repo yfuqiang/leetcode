@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void wiggleSort(vector<int>& nums) {
+        auto midptr = nums.begin() + nums.size() / 2;
+        nth_element(nums.begin(), midptr, nums.end());//第k大元素问题，如果不要求复杂度直接排序即可
+        int mid = *midptr;
+        
+        // 3-way-partition
+        int i = 0, j = 0, k = nums.size() - 1;//荷兰国旗问题
+        while(j < k){
+            if(nums[j] > mid){
+                swap(nums[j], nums[k]);
+                --k;
+            }
+            else if(nums[j] < mid){
+                swap(nums[j], nums[i]);
+                ++i;
+                ++j;
+            }
+            else{
+                ++j;
+            }
+        }
+        
+        if(nums.size() % 2) ++midptr;
+        vector<int> tmp1(nums.begin(), midptr);
+        vector<int> tmp2(midptr, nums.end());
+        for(int i = 0; i < tmp1.size(); ++i){
+            nums[2 * i] = tmp1[tmp1.size() - 1 - i];//防止重复的中位数排在一起，要从两个方向开始
+        }
+        for(int i = 0; i < tmp2.size(); ++i){//这里必须要左边元素比右边元素多，因此上方要mid++
+            nums[2 * i + 1] = tmp2[tmp2.size() - 1 - i];
+        }
+    }
+};
