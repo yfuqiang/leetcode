@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<int> constructRectangle(int area) {
+        if(area==0)
+        return {0,0};
+        int i;
+        int l,w;
+        int k=sqrt(area);
+        for(i=k;i>=1;i--)
+        {
+            if(area%i==0)
+            {
+                w=i;
+                break;
+            }
+        }
+        l=area/w;
+        return {l,w};
+    }
+};
