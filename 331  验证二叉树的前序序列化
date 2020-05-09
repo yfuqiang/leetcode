@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool isValidSerialization(string preorder) {
+        if(preorder == "#")
+            return true;
+        stack< pair<string, int> > st;
+
+        stringstream ss(preorder);
+        string str;
+        while(getline(ss, str, ','))
+        {
+            if(str != "#")
+                st.push(make_pair(str, 0));
+            else
+            {
+                //#除了空树外，#上面不可能没有结点，对于空树就是一个#
+                if(st.empty())
+                    return false;
+
+                while(!st.empty() && ++st.top().second == 2)//把它得根加一
+                {
+                    st.pop();
+                }
+
+                //如果栈为空，但还有未处理的，则错误
+                if(st.empty() && getline(ss, str, ','))
+                    return false;
+            }
+        }
+
+        return st.empty();
+    }
+};
