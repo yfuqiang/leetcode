@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<string> findWords(vector<string>& words) {
+        unordered_map<char,int> m;
+        vector<string> res;
+        m['q']=1;m['w']=1;m['e']=1;m['r']=1;m['t']=1;m['y']=1;m['i']=1;m['u']=1;m['o']=1;m['p']=1;
+        m['a']=2;m['s']=2;m['d']=2;m['f']=2;m['g']=2;m['h']=2;m['j']=2;m['k']=2;m['l']=2;
+        m['z']=3;m['x']=3;m['c']=3;m['v']=3;m['b']=3;m['n']=3;m['m']=3;
+    
+    for(auto c:words)
+    {
+        string k=c;
+        /*for(auto v:k)
+        v=tolower(v);*/
+        for(int j=0;j<k.size();j++)
+        k[j]=tolower(k[j]);
+        int i;
+        bool flag=0;
+        for(i=0;i<k.size()-1;i++)
+        {
+            if(m[k[i]]==m[k[i+1]])
+            flag=1;
+            else
+            {
+                flag=0;
+                break;
+            }
+        }
+        
+        if(flag||k.size()==1)
+        {
+            res.push_back(c);
+        }
+
+    }
+    return res;
+    }
+};
