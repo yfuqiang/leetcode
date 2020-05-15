@@ -1,0 +1,53 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> findMode(TreeNode* root) {
+        vector<int> res;
+        if(root==NULL)
+        return {};
+        int cur=1;
+        int max=1;
+       stack<TreeNode*> q;
+        vector<int> r;
+
+        while(q.empty()!=1||root)
+        {
+            while(root!=NULL)
+            {
+                q.push(root);
+                root=root->left;
+            }
+            root=q.top();
+            r.push_back(root->val);
+            q.pop();
+            root=root->right;
+        }
+        
+        res.push_back(r[0]);
+        for(int i=1;i<r.size();i++)//求数组v的众数
+        {
+            if(r[i]==r[i-1])
+                cur++;
+            else
+                cur=1;
+            if(cur==max)
+                res.push_back(r[i]);
+            else if(cur>max)
+            {
+                res.erase(res.begin(),res.end());
+                max=cur;
+                res.push_back(r[i]);
+            }
+        }
+        return res;
+
+    }
+};
