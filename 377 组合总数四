@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int combinationSum4(vector<int>& nums, int target) {
+        vector<unsigned long long> dp(target+1);
+        sort(nums.begin(),nums.end());
+        dp[0]=1;//使用一个数字时，例如dp[7]=7+dp[0]
+        int i,j;
+        for(i=1;i<=target;i++)
+        {
+            for(j=0;j<nums.size();j++)
+            {
+                if(i>=nums[j])
+                {
+                    
+                dp[i]+=dp[i-nums[j]];//以nums[j]结尾的组合
+                }
+                else
+                break;
+            }
+        }
+        return dp[target];
+    }
+};
