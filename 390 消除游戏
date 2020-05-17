@@ -1,0 +1,28 @@
+class Solution {
+public:
+int lastRemaining(int n)//判断左起第一个数的位置
+{
+	if (n == 0)
+	{
+		return 0;
+	}
+	int first = 1;							//第一个数
+	int factor = 1;							//公差
+	bool isLeft = true;						//方向
+	bool isEven = ((n & 1) == 0);			//长度是否为偶数
+	while (n != 1)
+	{
+
+		if (isLeft || !isEven)				//若从左向右或者从右向左时为奇数，第一个数变为原来的第二个
+		{
+			first += factor;
+		}
+		isLeft = !isLeft;					//改变方向
+		n >>= 1;							//长度减半
+		factor <<= 1;						//公差翻倍
+		isEven = ((n & 1) == 0);			//判断奇偶
+	}
+	return first;
+}
+
+};
