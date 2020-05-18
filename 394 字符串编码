@@ -1,0 +1,79 @@
+class Solution {
+public:
+    string decodeString(string s) {
+        stack<int> data;
+        stack<string> ss;
+        if(s=="")
+        return "";
+        string f;
+        int i,j;
+        for(i=0;i<s.length();i++)
+        {
+            if(isdata(s[i]))
+            {
+                int temp;
+                j=i+1;
+                temp=s[i]-'0';
+                while(isdata(s[j]))
+                {
+                    temp=temp*10+s[j]-'0';
+                    j++;
+                }
+                i=j-1;
+                data.push(temp);
+                continue;
+            }
+            else
+            {
+                if(s[i]=='[')
+                {
+                f=s[i];
+                ss.push(f);
+                }
+                else if(s[i]!=']')
+                {
+                    if(ss.empty()!=1&&ss.top()!="[")
+                    {
+                        string k=ss.top();
+                        ss.pop();
+                        k=k+s[i];
+                        ss.push(k);
+                    }
+                    else
+                    {
+                        f=s[i];
+                        ss.push(f);
+                    }
+                }
+                else if(s[i]==']')
+                {
+                    string t=ss.top();
+                    ss.pop();
+                    int a=data.top();
+                    data.pop();
+                    string t1;
+                    for(int p=0;p<a;p++)
+                    {
+                        t1=t1+t;
+                    }
+                    ss.pop();
+                    while(ss.empty()!=1&&ss.top()!="[")
+                    {
+                        string m=ss.top();
+                        ss.pop();
+                        t1=m+t1;                       
+                    }
+                    ss.push(t1);
+                }
+            }
+        }
+        return ss.top();
+    }
+    bool isdata(char a)
+    {
+        if(a>='0'&&a<='9')
+        return true;
+        else
+        return false;
+    }
+};
