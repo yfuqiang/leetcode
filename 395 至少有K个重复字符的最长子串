@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int longestSubstring(string s, int k) {
+        map<char,int> m;
+        if(s.size()==0)
+        return 0;
+        for(auto c:s)
+        {
+            m[c]++;
+        }
+        int flag=1;
+        for(auto c:m)
+        {
+            if(c.second<k)
+            {flag=0;
+            break;}
+        }
+        if(flag==1)
+        return s.size();
+        int pre=0,cur=0,leng=0;
+        while(cur<s.size())
+        {
+            if(m[s[cur]]>=k)
+            cur++;
+            else
+            {
+                string ss=s.substr(pre,cur-pre);
+                if(ss.size()>leng)//剪枝
+                {
+                    leng=max(leng,longestSubstring(ss,k));
+                }
+                int next=cur;
+                while(m[s[next]]<k&&next<s.size())
+                {
+                    next++;
+                }
+                pre=next;
+                cur=next;
+            }
+        }
+        if(pre<s.size())
+        {
+            string ss=s.substr(pre,cur-pre);
+            if(ss.size()>leng)
+            leng=max(leng,longestSubstring(ss,k));
+        }
+        return leng;
+    }
+};
