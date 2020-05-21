@@ -1,0 +1,44 @@
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int sum=0;
+        int i;
+        for(i=0;i<nums.size();i++)
+        {
+            sum+=nums[i];
+        }
+        if(sum%2==1)
+        return false;
+        sort(nums.rbegin(),nums.rend());
+        sum/=2;
+        if(nums[0]>sum)//如果一个比一半大 那另一些肯定比一半小
+            return false;
+        if(nums[0]==sum)
+            return true;
+
+        dfs(0,sum,nums);
+        return flag;
+    }
+    void dfs(int begin,int sum,vector<int> nums)
+    {
+        if(flag==1)
+        return;
+        if(sum<0)
+        return;
+        if(sum==0)
+        {
+            flag=1;
+            return;
+        }
+        int i;
+        for(i=begin;i<nums.size();i++)
+        {
+            if(nums[i]<=sum)
+            {       
+                dfs(i+1,sum-nums[i],nums);
+            }
+        }
+        return ;
+    }
+    bool flag=0;
+};
