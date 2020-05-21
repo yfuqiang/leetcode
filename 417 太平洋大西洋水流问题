@@ -1,0 +1,42 @@
+class Solution {//与130题很像
+public:
+    vector<vector<int>>dir={{1,0},{-1,0},{0,1},{0,-1}};
+    vector<vector<int>>res;
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& matrix) {
+        if(matrix.size()<1)return res;
+        int m=matrix.size();
+        int n=matrix[0].size();
+        vector<vector<int>>A(m,vector<int>(n));
+        vector<vector<int>>B(m,vector<int>(n));
+
+        for(int i=0;i<m;i++){//从边界搜索
+            dfs(matrix,i,0,A);
+            dfs(matrix,i,n-1,B);
+        }
+        for(int i=0;i<n;i++){
+            dfs(matrix,0,i,A);
+            dfs(matrix,m-1,i,B);
+        }
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(A[i][j]&&B[i][j]){//有重合则符合
+                    res.push_back({i,j});
+                }
+            }
+        }
+        return res;
+    }
+
+    void dfs(vector<vector<int>>& matrix,int x,int y,vector<vector<int>>& v){
+        if(v[x][y])return ;
+        v[x][y]=1;
+        for(int i=0;i<4;i++){
+            int nx=dir[i][0]+x;
+            int ny=dir[i][1]+y;
+            if(nx>=matrix.size()||ny>=matrix[0].size()||nx<0||ny<0||matrix[x][y]>matrix[nx][ny])continue;
+            dfs(matrix,nx,ny,v);
+        }
+        return ;
+    }
+};
