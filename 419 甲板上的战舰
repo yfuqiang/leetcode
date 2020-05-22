@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int countBattleships(vector<vector<char>>& board) {
+        int i,j;
+        int count=0;
+        vector<vector<int>> next{{0,1},{0,-1},{-1,0},{1,0}};
+        for(i=0;i<board.size();i++)
+        {
+            for(j=0;j<board[0].size();j++)
+            {
+                if(board[i][j]=='X')
+               { dfs(i,j,next,board);
+               count++;
+               }
+            }
+        }
+        return count;
+    }
+    void dfs(int i,int j,vector<vector<int>>next,vector<vector<char>>& board)
+    {
+        board[i][j]='.';
+        int x,y;
+        for(x=0;x<4;x++)
+        {
+                if((i+next[x][0]<0)||(i+next[x][0]>=board.size())||(j+next[x][1]<0)||(j+next[x][1]>=board[0].size()))
+                continue;
+                if(board[i+next[x][0]][j+next[x][1]]=='X')
+                dfs(i+next[x][0],j+next[x][1],next,board); 
+        }
+    }
+};
