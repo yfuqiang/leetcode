@@ -1,0 +1,51 @@
+class Trie{
+public:
+    Trie* next[2];
+    Trie()
+    {
+        memset(next, 0, sizeof(next));
+    }
+};
+class Solution {
+    Trie* root = new Trie();
+public:
+    int findMaximumXOR(vector<int>& nums) {
+        // 将数全部存入字典树里面
+        for(int num : nums)
+        {
+            Trie* node = root;
+            for(int i = 30; i >= 0; i--)//从高位向低位走
+            {
+                int bt = num >> i & 1;
+                if(node->next[bt] == nullptr)
+                {
+                    node->next[bt] = new Trie();//建立字典树
+                }
+                node = node->next[bt];
+            }
+        }
+        // 找最大^值
+        int res = 0;
+        for(int num : nums)
+        {
+            Trie* node = root;
+            int sum = 0;
+            for(int i = 30; i >= 0; i--)
+            {
+                int bt = num >> i & 1;
+                if(bt == 1)//如果是1则找有没有0，若有一定是最大值，因为从高位向低位
+                {
+                    sum += node->next[0] != nullptr ? 1 << i : 0 ;//之和是每次用1移位来加
+                    node = node->next[0] != nullptr ? node->next[0] : node->next[1];
+                }
+                else
+                {
+                    sum += node->next[1] != nullptr ? 1 << i : 0 ;
+                    node = node->next[1] != nullptr ? node->next[1] : node->next[0];
+                }
+            }
+            res = max(res, sum);
+        }
+        return res;
+    }
+};
