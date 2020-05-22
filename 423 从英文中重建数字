@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string originalDigits(string s) {
+        map<char, int> m;
+        for (auto c : s) ++m[c];
+        map<int, int> num;
+        num[0] = m['z'];
+        num[2] = m['w'];
+        num[4] = m['u'];
+        num[6] = m['x'];
+        num[8] = m['g'];
+        num[1] = m['o'] - num[0] - num[2] - num[4];
+        num[3] = m['r'] - num[0] - num[4];
+        num[5] = m['f'] - num[4];
+        num[7] = m['s'] - num[6];
+        num[9] = m['i'] - num[5] - num[6] - num[8];
+        string res;
+        for (auto& p : num) {
+            res.insert(res.end(), p.second, p.first + '0');
+        }
+        return res;
+    }
+};
