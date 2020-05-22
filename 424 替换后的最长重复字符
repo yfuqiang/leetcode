@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        int ans = 0;
+        int left = 0, right = 0, max_count =0;
+        int lo;
+        int alpha[26] = {0};
+        while(right < s.size()){
+            char c = s[right];
+            alpha[c-'A']++;
+            //max_count为某次扫描后，重复字母出现最多的次数
+            max_count = max(max_count, alpha[c-'A']);//不去优化max_count直接每次更新
+            if(max_count==alpha[c-'A'])
+            lo=c-'A';
+            if(right - left + 1 - max_count > k){
+                if(lo==s[left]-'A')
+                max_count--;
+                alpha[s[left]-'A']--;
+                left ++;
+
+            }
+            ans = max(ans, right-left+1);
+            right++;
+        }
+        return ans;
+    }
+};
