@@ -1,0 +1,31 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* prev;
+    Node* next;
+    Node* child;
+};
+*/
+
+ class Solution{
+    public:
+        Node* flattenHelper(Node* head){
+            if(!head || (!head->next && !head->child))return head;
+            Node* nextTmp = head->next;
+            Node* n = flattenHelper(head->child);//找最后一个节点
+            if(n) {
+                head->next = head->child;
+                head->child->prev = head;
+                n->next = nextTmp;
+                if(nextTmp) nextTmp->prev = n;
+                head->child = NULL;//child最后加点连主链表
+            }
+            return nextTmp? flattenHelper(nextTmp) : n;
+        }
+        Node* flatten(Node* head) {
+            flattenHelper(head);
+            return head;
+        }
+};
