@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<int> findRightInterval(vector<vector<int>>& intervals) {
+         map<int,int> m;
+         vector<int> ss(intervals.size());
+        for(int j=0;j<intervals.size();j++)
+        {
+            m[intervals[j][0]]=j;
+            ss[j]=intervals[j][0];
+        }
+        sort(ss.begin(),ss.end());
+        vector<int> res;
+        int i;
+        for(i=0;i<ss.size();i++)
+        {
+            int lo=binsearch(ss,intervals[i][1]);
+            if(lo>=ss.size())
+            res.push_back(-1);
+            else
+            res.push_back(m[ss[lo]]);
+        }
+        return res;
+    }
+    int binsearch(vector<int> ss,int target)
+    {
+        int low=0;
+        int high=ss.size();
+        int mid;
+        while(low<high)
+        {
+            mid=low+(high-low)/2;
+            if(ss[mid]>target)
+            high=mid;
+            else if(ss[mid]<target)
+            low=mid+1;
+            else
+            return mid;
+        }
+        return low;
+    }
+};
