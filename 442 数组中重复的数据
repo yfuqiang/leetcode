@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        vector<int> ans;
+        int tmp;
+        for(auto n:nums){
+            tmp = abs(n);//n没加引用，是副本
+            if(nums[tmp-1]<0)
+                ans.push_back(tmp);
+            else
+                nums[tmp-1] = -nums[tmp-1];
+        }
+        return ans;
+    }
+};
