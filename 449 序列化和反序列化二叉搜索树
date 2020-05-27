@@ -1,0 +1,70 @@
+class Codec {
+public:
+    void BST_preorder(TreeNode*root,string& data)//先序遍历
+    {
+        if(!root)
+        {
+            return;
+        }
+        data+=to_string(root->val);
+        data += "#" ; 
+        BST_preorder(root->left,data);
+        BST_preorder(root->right,data);
+    }
+    void BST_insert(TreeNode* root,TreeNode* insert_node)//中序遍历形式插入
+    {
+        if(root->val > insert_node->val)
+        {
+            if(root->left)
+            {
+                BST_insert(root->left,insert_node);//递归遍历左子树
+            }
+            else
+            {
+                root->left=insert_node;
+            }
+        }else
+        {
+            if(root->right)
+            {
+                BST_insert(root->right,insert_node);
+            }
+            else
+            {
+                root->right=insert_node;
+            }
+        }
+    }
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        std::string data;
+        BST_preorder(root,data);
+        return data;
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        vector<TreeNode*> vec;
+        int val=0;
+        if(data.length() == 0)
+        {
+            return NULL;
+        }
+        for(int i=0;i<data.length();i++)
+        {
+            if(data[i] == '#')
+            {
+                vec.push_back(new TreeNode(val));//vec为所有不为空的结点
+                val=0;
+            }else
+            {
+                val=val*10 + data[i] - '0';
+            }
+        }
+        for(int i=1;i<vec.size();i++)
+        {
+            BST_insert(vec[0],vec[i]);
+        }
+        return vec[0];
+    }
+};
