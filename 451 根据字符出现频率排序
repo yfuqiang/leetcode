@@ -1,0 +1,38 @@
+struct cmp{
+    bool operator()(pair<char,int> v1,pair<char,int>v2){
+        return v1.second<v2.second;  
+    }
+};
+class Solution {
+public:
+    string frequencySort(string s) {
+        int i;
+        map<char,int> m;
+        string res;
+        for(i=0;i<s.length();i++)
+        {
+            m[s[i]]++;
+        }
+        /*vector<pair<char,int>> k;
+        for(auto c:m)
+        {
+            k.push_back(make_pair(c.first,c.second));
+        }*/
+        priority_queue<pair<char,int>,vector<pair<char,int>>,cmp> q;
+        
+        for(auto c:m)
+        {
+            q.push({c.first,c.second});
+        }
+        while(q.empty()!=1)
+        {
+            pair<char,int> l=q.top();
+            q.pop();
+            
+            res.append(l.second,l.first);
+
+        }
+        return res;
+        
+    }
+};
