@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool find132pattern(vector<int>& nums) {
+        if(nums.size()<=2)
+            return false;
+        vector<int> min(nums.size(),0);
+        stack<int> Stack;
+        min[0]=nums[0];
+        //找到每个数前面的数里面最小的
+        for(int i=1;i<nums.size();++i) 
+            min[i]=std::min(min[i-1],nums[i-1]);
+        for(int i=nums.size()-1;i>=0;--i)
+            if(nums[i]>min[i]){
+                while(!Stack.empty() && Stack.top()<=min[i])
+                    Stack.pop();
+                if(!Stack.empty() && Stack.top()<nums[i])
+                    return true;
+                Stack.push(nums[i]);
+            }
+        return false;
+    }
+};
+/*1、首先将所有小于等于min[i]的数（我们其实是在试图找到132序列里面的2），依次出栈，
+这里其实用到了min的一个性质min一定是一个递减序列（不一定严格递减），所以如果栈内的元素小于当前的min[i],一定小于其前面的min数组值，可以直接不予考虑，所以可以直接出栈。
+    2、在前面一步结束之后，如果栈内还留有元素，那么栈顶元素一定大于min[i]的最小的数。此时即可判断，如果栈顶元素小于nums[i],那么min[i],nums[i],栈顶元素即可构成132序列，返回true；否则，将nums[i]入栈。*/
