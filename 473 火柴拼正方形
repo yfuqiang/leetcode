@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool makesquare(vector<int>& nums) {
+        if(nums.size()<3)
+        return false;
+        sort(nums.rbegin(),nums.rend());
+        int i;
+        long sum=0;
+        sum=accumulate(nums.begin(), nums.end(), 0);
+        if(sum%4!=0)
+        return false;
+        int leng=sum/4;
+        int j;
+        vector<int> visited(nums.size(),0);
+        for(j=0;j<4;j++)
+        {
+            if(dfs(nums,visited,leng,0)==0)
+            return false;
+        }
+        return true;
+    }
+    bool dfs(vector<int>& nums,vector<int>& visited,int sum,int lo)
+    {
+        if(sum==0)
+        return true;
+        if(lo>=nums.size())
+        return false;
+        for(int i=lo;i<nums.size();i++)
+        {
+            if(visited[i])
+            continue;
+            if(sum<visited[i])
+            continue;
+            visited[i]=1;
+            if(dfs(nums,visited,sum-nums[i],lo+1)==1)//回溯
+            return true;
+            visited[i]=0;
+        }
+        return false;
+    }
+};
