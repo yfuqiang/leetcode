@@ -1,0 +1,89 @@
+class Solution {
+public:
+    string validIPAddress(string IP) {
+        if(IP=="")
+        return "Neither";
+        stringstream ss(IP);
+        vector<string> v;
+        string s;
+        char sep;
+        if(IP[0]=='.'||IP[0]==':'||IP[IP.size()-1]=='.'||IP[IP.size()-1]==':')
+        return "Neither";
+        for(int i=0;i<IP.size();i++)
+        {
+            if(IP[i]=='.')
+            {
+                sep='.';
+                break;
+            }
+            else if(IP[i]==':')
+            {
+                sep=':';
+                break;
+            }
+        }
+        while(getline(ss,s,sep))
+        {
+            v.push_back(s);
+        }
+        
+        if(sep=='.')
+        {
+            if(v.size()!=4)
+            return "Neither";
+            for(int i=0;i<v.size();i++)
+            {
+            if(v[i]=="")
+            return "Neither";
+            if(v[i].size()>3)
+            return "Neither";
+            for(int j=0;j<v[i].size();j++)
+            {
+                if(v[i][j]>='0'&&v[i][j]<='9')
+                continue;
+                else
+                return "Neither";
+            }
+            int a=stoi(v[i]);
+            if(a<0||a>255)
+            return "Neither";
+            if(a!=0)
+            {
+                if(v[i][0]=='0')
+                return "Neither";
+            }
+            if(a==0)
+            {
+                if(v[i].size()>1)
+                if(v[i][0]=='0'&&v[i][1]=='0')
+                return "Neither";
+            }
+            }
+            return "IPv4";
+        }
+        else if(sep==':')
+        {
+            if(v.size()!=8)
+            return "Neither";
+            for(int i=0;i<v.size();i++)
+            {
+                int size=0;
+                if(v[i]=="")
+                return "Neither";
+                if(v[i].size()>4)
+                return "Neither";
+                for(int j=0;j<v[i].size();j++)
+                {
+         if((v[i][j]<='f'&&v[i][j]>='a')||(v[i][j]<='F'&&v[i][j]>='A')||(v[i][j]>='0'&&v[i][j]<='9'))
+                    continue;
+                    else
+                    return "Neither";
+                    
+                }
+                
+            }
+            return "IPv6";
+        }
+        return "Neither";
+    }
+};
