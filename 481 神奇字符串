@@ -1,0 +1,21 @@
+class Solution {
+
+public:
+
+int magicalString(int n) {
+    int res=0;
+    string s="122";
+    int i,k;
+    for(i=2,k=1;i<n;i++,k=3-k){
+        for(int j=0;j<s[i]-'0';j++)
+            s+=to_string(k);
+    }
+    for(i=0;i<n;i++){
+        if(s[i]=='1')
+            res++;
+
+    }
+    return res;
+
+}
+};
