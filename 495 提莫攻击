@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int findPoisonedDuration(vector<int>& timeSeries, int duration) {
+        int i,j;
+        int sum=0;
+        int bound;
+        for(i=0;i<timeSeries.size();)
+        {
+            bound=timeSeries[i]+duration;
+            
+            for(j=i+1;j<timeSeries.size();j++)
+            {
+                if(timeSeries[j]<bound)
+                bound=timeSeries[j]+duration;
+                else
+                break;
+            }
+            sum+=bound-timeSeries[i];
+            i=j;
+        }
+        return sum;
+    }
+};
